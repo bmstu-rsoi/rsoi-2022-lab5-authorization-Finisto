@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+{{/*    app-label: {{ .Values.labels.appLabel }}*/}}
+    app: {{ .Values.labels.app }}
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+{{/*      app-label: {{ .Values.labels.appLabel }}*/}}
+      app: {{ .Values.labels.app }}
+  template:
+    metadata:
+      labels:
+{{/*        app-label: {{ .Values.labels.appLabel }}*/}}
+        app: {{ .Values.labels.app }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.service.port }}

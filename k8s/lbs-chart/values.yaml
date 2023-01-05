@@ -1,0 +1,32 @@
+gateway:
+  service:
+    port: 8080
+    targetPort: 8080
+  labels:
+    appLabel: gateway-service-label
+  selectorLabels:
+    appLabel: gateway-service-label
+library:
+  service:
+    port: 8060
+    targetPort: 8060
+  labels:
+    appLabel: library-service-label
+  selectorLabels:
+    appLabel: library-service-label
+rating:
+  service:
+    port: 8050
+    targetPort: 8050
+  labels:
+    appLabel: rating-service-label
+  selectorLabels:
+    appLabel: rating-service-label
+rental:
+  service:
+    port: 8070
+    targetPort: 8070
+  labels:
+    appLabel: rental-service-label
+  selectorLabels:
+    appLabel: rental-service-label

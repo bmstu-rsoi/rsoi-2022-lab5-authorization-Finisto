@@ -1,0 +1,19 @@
+apiVersion: v2
+name: libsys-chart
+description: A Helm chart for Kubernetes library system
+
+type: application
+version: 0.4.0
+dependencies:
+  - name: service-chart
+    version: 0.3.0
+    alias: gateway
+  - name: service-chart
+    version: 0.3.0
+    alias: rating
+  - name: service-chart
+    version: 0.3.0
+    alias: library
+  - name: service-chart
+    version: 0.3.0
+    alias: rental

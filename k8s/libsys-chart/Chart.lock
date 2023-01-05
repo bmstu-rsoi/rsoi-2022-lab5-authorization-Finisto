@@ -1,0 +1,6 @@
+dependencies:
+- name: service-chart
+  repository: ""
+  version: 0.1.0
+digest: sha256:7b42c4ff53008c42bba165a5b19104f484c1205540c3b16fa05d87b47b21e806
+generated: "2022-12-25T21:29:54.5133307+03:00"

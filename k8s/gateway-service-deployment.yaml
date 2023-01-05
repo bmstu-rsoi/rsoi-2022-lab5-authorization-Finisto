@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service
+  labels:
+    app-label: gateway-service-label
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app-label: gateway-service-label
+  template:
+    metadata:
+      labels:
+        app-label: gateway-service-label
+    spec:
+      containers:
+        - name: gateway-service-app
+          image: cr.yandex/crp4l736sgmtcqfvvfi9/gateway-service:v1

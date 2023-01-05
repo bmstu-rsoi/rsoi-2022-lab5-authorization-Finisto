@@ -1,0 +1,6 @@
+apiVersion: v2
+name: service-chart
+description: A Helm chart for service
+
+type: application
+version: 0.3.0

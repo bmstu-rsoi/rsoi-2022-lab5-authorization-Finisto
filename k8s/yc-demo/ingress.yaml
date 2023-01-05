@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: alb-demo-tls
+  annotations:
+    ingress.alb.yc.io/subnets: enp1fcvjcb4b39nqtdus
+    ingress.alb.yc.io/security-groups: ds7t2gq7hp5f0275u094
+    ingress.alb.yc.io/external-ipv4-address: auto
+    ingress.alb.yc.io/group-name: rsoi-ingress-group
+spec:
+  tls:
+    - hosts:
+        - finarsi-rsoi.site
+      secretName: yc-certmgr-cert-id-fpqfujit9rbu1mj56cec
+  rules:
+    - host: finarsi-rsoi.site
+      http:
+        paths:
+          - path: /app1
+            pathType: Prefix
+            backend:
+              service:
+                name: alb-demo-1
+                port:
+                  number: 80
+          - path: /app2
+            pathType: Prefix
+            backend:
+              service:
+                name: alb-demo-2
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: alb-demo-2
+                port:
+                  name: http

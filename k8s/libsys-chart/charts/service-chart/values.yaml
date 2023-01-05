@@ -1,0 +1,10 @@
+version: 0.3.0
+image:
+  pullPolicy: Always
+resources:
+  requests:
+    cpu: 500m
+    memory: 350Mi
+  limits:
+    cpu: 500m
+    memory: 350Mi

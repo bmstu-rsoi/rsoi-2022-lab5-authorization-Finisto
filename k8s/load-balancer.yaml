@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: gateway-service
+  labels:
+    app-label: gateway-service-label
+spec:
+  ports:
+    - port: 8080
+      name: plaintext
+      targetPort: 8080
+  selector:
+    app-label: gateway-service-label
+  type: LoadBalancer
