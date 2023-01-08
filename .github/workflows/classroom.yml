@@ -19,24 +19,6 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
-      - name: Setup kubernetes
-        run: |
-          echo "${{secrets.OKTETO_KUBECONFIG}}" > ./okteto-kube.config
-          export KUBECONFIG=./okteto-kube.config:${KUBECONFIG:-$HOME/.kube/config}
-          echo "$KUBECONFIG"
-
-      - name: Install helm chart for library system
-        run: |
-          echo "config file:"
-          cat okteto-kube.config
-          echo "kubeconfig var:"
-          echo "${KUBECONFIG}"
-          export KUBECONFIG=./okteto-kube.config:${KUBECONFIG:-$HOME/.kube/config}
-          echo "kubeconfig var:"
-          echo "${KUBECONFIG}"
-          echo "$KUBECONFIG"
-          helm install library-system ./k8s/libsys-chart/ --set postgresHost=$POSTGRES_HOST,libraryHost=$LIBRARY_HOST,rentalHost=$RENTAL_HOST,ratingHost=$RATING_HOST
-          sleep 60    
       
 
       - name: Set up JDK 19
@@ -65,7 +47,25 @@ jobs:
           docker push ${{secrets.DOCKERHUB_USERNAME}}/library-service:v1.7
           docker push ${{secrets.DOCKERHUB_USERNAME}}/reservation-service:v1.7
 
-      
+
+      - name: Setup kubernetes
+        run: |
+          echo "${{secrets.OKTETO_KUBECONFIG}}" > ./okteto-kube.config
+          export KUBECONFIG=./okteto-kube.config:${KUBECONFIG:-$HOME/.kube/config}
+          echo "$KUBECONFIG"
+
+      - name: Install helm chart for library system
+        run: |
+          echo "config file:"
+          cat okteto-kube.config
+          echo "kubeconfig var:"
+          echo "${KUBECONFIG}"
+          export KUBECONFIG=./okteto-kube.config:${KUBECONFIG:-$HOME/.kube/config}
+          echo "kubeconfig var:"
+          echo "${KUBECONFIG}"
+          echo "$KUBECONFIG"
+          helm install library-system ./k8s/libsys-chart/ --set postgresHost=$POSTGRES_HOST,libraryHost=$LIBRARY_HOST,rentalHost=$RENTAL_HOST,ratingHost=$RATING_HOST
+          sleep 60    
 
       
 
