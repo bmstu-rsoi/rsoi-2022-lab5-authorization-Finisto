@@ -1,18 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: rating-ingress
+  name: rating
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt"
+    dev.okteto.com/generate-host: "true"
+#    kubernetes.io/ingress.class: "nginx"
+#    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
-  tls:
-    - hosts:
-        - rating.finarsi-rsoi.site
-      secretName: letsencrypt
+#  tls:
+#    - hosts:
+#        - rating.finarsi-rsoi.site
+#      secretName: letsencrypt
+  ingressClassName: nginx
   rules:
-    - host: rating.finarsi-rsoi.site
-      http:
+#    - host: rating.finarsi-rsoi.site
+    - http:
         paths:
           - path: /
             pathType: Prefix
