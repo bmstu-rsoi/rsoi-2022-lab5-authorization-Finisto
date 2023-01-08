@@ -31,6 +31,11 @@
       "key": "clientSecret",
       "value": "KIAa_WvBsBwYa00XQlsX9A7ssiio4Fv3_y8B0_CSBPM5NEz7VU_1Qq0SES7Xtj7Z",
       "enabled": true
+    },
+    {
+      "key": "audience",
+      "value": "https://dev-m2xuc817jnql8075.jp.auth0.com/api/v2/",
+      "enabled": true
     }
   ],
   "_postman_variable_scope": "environment",
