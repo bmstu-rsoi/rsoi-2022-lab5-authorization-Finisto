@@ -30,7 +30,7 @@ jobs:
           echo "config file:"
           cat okteto-kube.config
           echo "kubeconfig var:"
-          echo "$KUBECONFIG"
+          echo "${KUBECONFIG}"
           helm install library-system ./k8s/libsys-chart/ --set postgresHost=$POSTGRES_HOST,libraryHost=$LIBRARY_HOST,rentalHost=$RENTAL_HOST,ratingHost=$RATING_HOST
           sleep 60    
       
