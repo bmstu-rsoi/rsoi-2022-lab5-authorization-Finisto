@@ -5,7 +5,7 @@ metadata:
   labels:
 {{/*    app-label: {{ .Values.labels.appLabel }}*/}}
     app: {{ .Values.labels.app }}
-  namespace: default
+  namespace: rsoi-finisto
 spec:
   replicas: 1
   selector:
@@ -22,6 +22,27 @@ spec:
         - name: {{ .Chart.Name }}-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: "POSTGRES_HOST"
+              valueFrom:
+                secretKeyRef:
+                  key: postgresHost
+                  name: {{ .Release.Name }}-hosts
+            - name: "LIBRARY_HOST"
+              valueFrom:
+                secretKeyRef:
+                  key: libraryHost
+                  name: {{ .Release.Name }}-hosts
+            - name: "RATING_HOST"
+              valueFrom:
+                secretKeyRef:
+                  key: ratingHost
+                  name: {{ .Release.Name }}-hosts
+            - name: "RENTAL_HOST"
+              valueFrom:
+                secretKeyRef:
+                  key: rentalHost
+                  name: {{ .Release.Name }}-hosts
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           ports:

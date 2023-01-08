@@ -1,62 +1,68 @@
 #  host: 51.250.4.220
 
 gateway:
-  host: finarsi-rsoi.site
+  host: gateway-rsoi-finisto.cloud.okteto.net
   image:
-    repository: cr.yandex/crp4l736sgmtcqfvvfi9/gateway-service
-    tag: v1.5
+    repository: finisto/gateway-service
+    tag: v1.6
   service:
     port: 8080
     targetPort: 8080
   labels:
     app: gateway-service
+  env:
+    postgresHost: postgresql-dev.rsoi-finisto.svc.cluster.local
+    libraryHost: postgresql-dev.rsoi-finisto.svc.cluster.local
+    ratingHost: postgresql-dev.rsoi-finisto.svc.cluster.local
+    rentalHost: postgresql-dev.rsoi-finisto.svc.cluster.local
+
 #    appLabel: gateway-service-label
   selectorLabels:
     app: gateway-service
 #    appLabel: gateway-service-label
-
-rating:
-  host: rating.finarsi-rsoi.site
-  image:
-    repository: cr.yandex/crp4l736sgmtcqfvvfi9/rating-service
-    tag: v1.5
-  service:
-    port: 8050
-    targetPort: 8050
-  labels:
-#    appLabel: rating-service-label
-    app: rating-service
-  selectorLabels:
-#    appLabel: rating-service-label
-    app: rating-service
-
-library:
-  host: library.finarsi-rsoi.site
-  image:
-    repository: cr.yandex/crp4l736sgmtcqfvvfi9/library-service
-    tag: v1.5
-  service:
-    port: 8060
-    targetPort: 8060
-  labels:
-#    appLabel: library-service-label
-    app: library-service
-  selectorLabels:
-#    appLabel: library-service-label
-    app: library-service
-
-
-rental:
-  host: rental.finarsi-rsoi.site
-  image:
-    repository: cr.yandex/crp4l736sgmtcqfvvfi9/reservation-service
-    tag: v1.5
-  service:
-    port: 8070
-    targetPort: 8070
-  labels:
-#    appLabel: rental-service-label
-    app: rental-service
-  selectorLabels:
-#    appLabel: rental-service-label
-    app: rental-service
+#
+#rating:
+#  host: rating.finarsi-rsoi.site
+#  image:
+#    repository: finisto/rating-service
+#    tag: v1.5
+#  service:
+#    port: 8050
+#    targetPort: 8050
+#  labels:
+##    appLabel: rating-service-label
+#    app: rating-service
+#  selectorLabels:
+##    appLabel: rating-service-label
+#    app: rating-service
+#
+#library:
+#  host: library.finarsi-rsoi.site
+#  image:
+#    repository: finisto/library-service
+#    tag: v1.5
+#  service:
+#    port: 8060
+#    targetPort: 8060
+#  labels:
+##    appLabel: library-service-label
+#    app: library-service
+#  selectorLabels:
+##    appLabel: library-service-label
+#    app: library-service
+#
+#
+#rental:
+#  host: rental.finarsi-rsoi.site
+#  image:
+#    repository: finisto/reservation-service
+#    tag: v1.5
+#  service:
+#    port: 8070
+#    targetPort: 8070
+#  labels:
+##    appLabel: rental-service-label
+#    app: rental-service
+#  selectorLabels:
+##    appLabel: rental-service-label
+#    app: rental-service
