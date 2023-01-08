@@ -19,6 +19,12 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
+      - name: Setup kubernetes
+        run: |
+          echo "${{secrets.OKTETO_KUBECONFIG}}" > okteto-kube.config
+          export KUBECONFIG="./okteto-kube.config;${KUBECONFIG};$HOME/.kube/config"
+          echo "$KUBECONFIG"
+
       - name: Set up JDK 19
         uses: actions/setup-java@v3
         with:
@@ -45,10 +51,7 @@ jobs:
           docker push ${{secrets.DOCKERHUB_USERNAME}}/library-service:v1.7
           docker push ${{secrets.DOCKERHUB_USERNAME}}/reservation-service:v1.7
 
-      - name: Setup kubernetes
-        run: |
-          echo "${{secrets.OKTETO_KUBECONFIG}}" > okteto-kube.config
-          export KUBECONFIG="./okteto-kube.config;${KUBECONFIG};$HOME/.kube/config"
+      
 
       - name: Install helm chart for library system
         run: |
