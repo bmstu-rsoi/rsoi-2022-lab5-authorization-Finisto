@@ -2,6 +2,12 @@ name: GitHub Classroom Workflow
 on:
   push:
     branches: [ master ]
+
+env:
+  POSTGRES_HOST: ${{secrets.POSTGRES_HOST}}
+  LIBRARY_HOST: ${{secrets.LIBRARY_HOST}}
+  RENTAL_HOST: ${{secrets.RENTAL_HOST}}
+  RATING_HOST: ${{secrets.RATING_HOST}}
 jobs:
   build:
     name: Autograding
@@ -27,17 +33,17 @@ jobs:
 
       - name: Build docker images
         run: |
-          docker build .\gateway-library-service\ --tag finisto/gateway-service:v1.7
-          docker build .\rating-service\ --tag finisto/rating-service:v1.7
-          docker build .\library-service\ --tag finisto/library-service:v1.7
-          docker build .\reservation-service\ --tag finisto/reservation-service:v1.7
+          docker build .\gateway-library-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/gateway-service:v1.7
+          docker build .\rating-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/rating-service:v1.7
+          docker build .\library-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/library-service:v1.7
+          docker build .\reservation-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/reservation-service:v1.7
 
       - name: Push images to registry
         run: |
-          docker push finisto/gateway-service:v1.7
-          docker push finisto/rating-service:v1.7
-          docker push finisto/library-service:v1.7
-          docker push finisto/reservation-service:v1.7
+          docker push ${{secrets.DOCKERHUB_USERNAME}}/gateway-service:v1.7
+          docker push ${{secrets.DOCKERHUB_USERNAME}}/rating-service:v1.7
+          docker push ${{secrets.DOCKERHUB_USERNAME}}/library-service:v1.7
+          docker push ${{secrets.DOCKERHUB_USERNAME}}/reservation-service:v1.7
 
       - name: Setup kubernetes
         run: |
