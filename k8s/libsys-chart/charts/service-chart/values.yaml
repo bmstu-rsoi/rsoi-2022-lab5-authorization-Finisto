@@ -1,10 +1,15 @@
-version: 0.5.0
+version: 0.8.0
 image:
   pullPolicy: Always
 resources:
   requests:
-    cpu: 500m
-    memory: 350Mi
+    cpu: 1000m
+    memory: 1Gi
   limits:
-    cpu: 500m
-    memory: 350Mi
+    cpu: 1000m
+    memory: 1Gi
+#env:
+#  postgresHost: postgres
+#  libraryHost: library
+#  ratingHost: rating
+#  rentalHost: rental
