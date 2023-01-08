@@ -33,10 +33,10 @@ jobs:
 
       - name: Build docker images
         run: |
-          docker build .\gateway-library-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/gateway-service:v1.7
-          docker build .\rating-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/rating-service:v1.7
-          docker build .\library-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/library-service:v1.7
-          docker build .\reservation-service\ --tag ${{secrets.DOCKERHUB_USERNAME}}/reservation-service:v1.7
+          docker build ./gateway-library-service/ --tag ${{secrets.DOCKERHUB_USERNAME}}/gateway-service:v1.7
+          docker build ./rating-service/ --tag ${{secrets.DOCKERHUB_USERNAME}}/rating-service:v1.7
+          docker build ./library-service/ --tag ${{secrets.DOCKERHUB_USERNAME}}/library-service:v1.7
+          docker build ./reservation-service/ --tag ${{secrets.DOCKERHUB_USERNAME}}/reservation-service:v1.7
 
       - name: Push images to registry
         run: |
@@ -52,7 +52,7 @@ jobs:
 
       - name: Install helm chart for library system
         run: |
-          helm install library-system .\k8s\libsys-chart\ --set postgresHost=$POSTGRES_HOST,libraryHost=$LIBRARY_HOST,rentalHost=$RENTAL_HOST,ratingHost=$RATING_HOST
+          helm install library-system ./k8s/libsys-chart/ --set postgresHost=$POSTGRES_HOST,libraryHost=$LIBRARY_HOST,rentalHost=$RENTAL_HOST,ratingHost=$RATING_HOST
           sleep 60    
       
 
