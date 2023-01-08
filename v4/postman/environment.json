@@ -4,32 +4,32 @@
   "values": [
     {
       "key": "serviceUrl",
-      "value": "",
+      "value": "gateway-rsoi-finisto.cloud.okteto.net",
       "enabled": true
     },
     {
       "key": "identityProviderUrl",
-      "value": "",
+      "value": "https://dev-m2xuc817jnql8075.jp.auth0.com",
       "enabled": true
     },
     {
       "key": "username",
-      "value": "",
+      "value": "qq@qq.com",
       "enabled": true
     },
     {
       "key": "password",
-      "value": "",
+      "value": "w7N-f9Q-ZFQ-LAn",
       "enabled": true
     },
     {
       "key": "clientId",
-      "value": "",
+      "value": "i4ubDJshyFiCMCLZK5cuZMWLL8LF8Aya",
       "enabled": true
     },
     {
       "key": "clientSecret",
-      "value": "",
+      "value": "KIAa_WvBsBwYa00XQlsX9A7ssiio4Fv3_y8B0_CSBPM5NEz7VU_1Qq0SES7Xtj7Z",
       "enabled": true
     }
   ],
