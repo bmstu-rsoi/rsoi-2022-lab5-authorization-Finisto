@@ -4,7 +4,7 @@
   "values": [
     {
       "key": "serviceUrl",
-      "value": "gateway-rsoi-finisto.cloud.okteto.net",
+      "value": "https://gateway-rsoi-finisto.cloud.okteto.net",
       "enabled": true
     },
     {
