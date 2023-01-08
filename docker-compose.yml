@@ -2,7 +2,7 @@ version: "2"
 services:
   postgres:
     image: library/postgres:13
-    container_name: postgres-rsoi4
+    container_name: postgres-rsoi5
     restart: on-failure
     environment:
       POSTGRES_USER: postgres
@@ -16,33 +16,53 @@ services:
 
 # сервисы
   gateway:
-    image: finisto/gateway-service
+    image: finisto/gateway-service:lab5
     build: ./gateway-library-service
-    container_name: gateway-service4
+    container_name: gateway-service5
+    environment:
+      LIBRARY_HOST: library
+      RATING_HOST: rating
+      RENTAL_HOST: reservation
+      POSTGRES_HOST: postgres
     ports:
       - "8080:8080"
     depends_on:
       - postgres
   library:
-    image: finisto/library-service
+    image: finisto/library-service:lab5
     build: ./library-service
-    container_name: library-service4
+    container_name: library-service5
+    environment:
+      LIBRARY_HOST: library
+      RATING_HOST: rating
+      RENTAL_HOST: reservation
+      POSTGRES_HOST: postgres
     ports:
       - "8060:8060"
     depends_on:
       - postgres
   rating:
-    image: finisto/rating-service
+    image: finisto/rating-service:lab5
     build: ./rating-service
-    container_name: rating-service4
+    container_name: rating-service5
+    environment:
+      LIBRARY_HOST: library
+      RATING_HOST: rating
+      RENTAL_HOST: reservation
+      POSTGRES_HOST: postgres
     ports:
       - "8050:8050"
     depends_on:
       - postgres
   reservation:
-    image: finisto/reservation-service
+    image: finisto/reservation-service:lab5
     build: ./reservation-service
-    container_name: reservation-service4
+    container_name: reservation-service5
+    environment:
+      LIBRARY_HOST: library
+      RATING_HOST: rating
+      RENTAL_HOST: reservation
+      POSTGRES_HOST: postgres
     ports:
       - "8070:8070"
     depends_on:
