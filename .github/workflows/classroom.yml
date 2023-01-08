@@ -22,7 +22,7 @@ jobs:
       - name: Setup kubernetes
         run: |
           echo "${{secrets.OKTETO_KUBECONFIG}}" > okteto-kube.config
-          export KUBECONFIG="./okteto-kube.config;${KUBECONFIG};$HOME/.kube/config"
+          export KUBECONFIG=./okteto-kube.config:${KUBECONFIG:-$HOME/.kube/config}
           echo "$KUBECONFIG"
 
       - name: Set up JDK 19
