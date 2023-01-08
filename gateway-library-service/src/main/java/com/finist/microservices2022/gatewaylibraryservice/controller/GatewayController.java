@@ -4,6 +4,7 @@ import com.finist.microservices2022.gatewayapi.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -109,8 +110,36 @@ public class GatewayController {
     }
 
 
-    @GetMapping("/rating")
+    @GetMapping("/ratingOLD")
     public ResponseEntity<?> getUserRating(@RequestHeader(name = "X-User-Name") String userName) {
+        URI ratingUri = UriComponentsBuilder.fromHttpUrl(rating_url)
+                .path("/api/v1/rating")
+                .queryParam("username", userName)
+                .build()
+//                .encode()
+                .toUri();
+
+        ResponseEntity<?> respEntity = null;
+        try {
+            respEntity = this.restTemplate.getForEntity(ratingUri, UserRatingResponse.class);
+            if (respEntity.getStatusCode() == HttpStatus.OK) {
+                return new ResponseEntity<UserRatingResponse>((UserRatingResponse) respEntity.getBody(), HttpStatus.OK);
+
+            } else {
+                return new ResponseEntity<>(respEntity.getStatusCode());
+            }
+        } catch (Exception ex) {
+            return new ResponseEntity<ErrorResponse>(new ErrorResponse(ex.getMessage()), HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/rating")
+    public ResponseEntity<?> getUserRatingAuth(Authentication authentication) {
+
+//        Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
+        String userName = authentication.getName();
+
         URI ratingUri = UriComponentsBuilder.fromHttpUrl(rating_url)
                 .path("/api/v1/rating")
                 .queryParam("username", userName)
@@ -135,8 +164,9 @@ public class GatewayController {
 
 
     @PostMapping("/reservations")
-    public ResponseEntity<?> takeBookFromLibrary(@RequestHeader(name = "X-User-Name") String userName, @RequestBody TakeBookRequest requestBody) {
+    public ResponseEntity<?> takeBookFromLibrary(Authentication authentication, @RequestBody TakeBookRequest requestBody) {
 
+        String userName = authentication.getName();
         // get amount of already taken books by user
         List<UserReservationResponse> userReservations = getUserReservationsResponse(userName);
 
@@ -178,7 +208,9 @@ public class GatewayController {
     }
 
     @GetMapping("/reservations")
-    public ResponseEntity<List<BookReservationResponse>> getAllReservations(@RequestHeader(name = "X-User-Name") String userName){
+    public ResponseEntity<List<BookReservationResponse>> getAllReservations(Authentication authentication){
+        String userName = authentication.getName();
+
         URI reservationUri = UriComponentsBuilder.fromHttpUrl(reservation_url)
                 .path("/api/v1/reservations")
                 .queryParam("username", userName)
@@ -211,8 +243,9 @@ public class GatewayController {
 
     @PostMapping("/reservations/{reservationUid}/return")
     public ResponseEntity<?> returnBookToLibrary(@PathVariable UUID reservationUid,
-                                                @RequestHeader(name = "X-User-Name") String userName,
-                                                @RequestBody ReturnBookRequest requestBody){
+                                                @RequestBody ReturnBookRequest requestBody,
+                                                 Authentication authentication){
+        String userName = authentication.getName();
 
         // check if reservation exist
         UserReservationResponse userReservationResponse = getUserReservationResponse(reservationUid);

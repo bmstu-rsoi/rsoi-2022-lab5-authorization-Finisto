@@ -17,4 +17,4 @@ values (1, 1, 1);
 
 \c ratings
 insert into rating (id, username, stars)
-values (1, 'Test Max', 75)
+values (1, 'Test Max', 75), (2, 'auth0|63b7ec61de8bf7f5a9944b40', 75);
