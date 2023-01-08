@@ -15,7 +15,7 @@ image:
 # The postgres helm chart deployment will be using PVC postgresql-data-claim
 primary:
   persistence:
-    enabled: false
+    enabled: true
     existingClaim: postgresql-data-claim
 
 #  extraVolumes:
@@ -29,6 +29,9 @@ primary:
 
   initdb:
     scripts:
+      10-create-user.sql: |
+        CREATE ROLE program WITH PASSWORD 'test';
+        ALTER ROLE program WITH LOGIN;
       20-db-v4.sql: |
         CREATE DATABASE reservations;
         GRANT ALL PRIVILEGES ON DATABASE reservations TO program;
@@ -36,9 +39,6 @@ primary:
         GRANT ALL PRIVILEGES ON DATABASE libraries TO program;
         CREATE DATABASE ratings;
         GRANT ALL PRIVILEGES ON DATABASE ratings TO program;
-      10-create-user.sql: |
-        CREATE ROLE program WITH PASSWORD 'test';
-        ALTER ROLE program WITH LOGIN;
       30-create-tables.sql: |
         \c reservations
         CREATE TABLE reservation

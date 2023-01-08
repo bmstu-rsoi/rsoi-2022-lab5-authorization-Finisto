@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:12.10 # Docker image
+          image: postgres:13 # Docker image
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
@@ -27,4 +27,4 @@ spec:
       volumes:
         - name: postgresdata
           persistentVolumeClaim:
-            claimName: postgres-volume-claim
+            claimName: postgresql-data-claim
